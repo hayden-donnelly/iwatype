@@ -1,28 +1,19 @@
-const http = require ("http");
-const fs = require("fs");
+const express = require("express");
+const { readFile } = require("fs").promises;
 const port = 3000;
+const app = express();
 
 const quotes = ["Don’t walk in front of me… I may not follow. Don’t walk behind me… I may not lead. Walk beside me… just be my friend",
                 "Without music, life would be a mistake.",
                 "Man is abandonned upon the earth, condemned to be free."]
 
-const server = http.createServer((req, res) => {
-    if(req.url == "new-quote") {
-        res.writeHead(200, {"Content-Type": "text/txt"});
-        res.write(quotes[parseInt(Math.random() * (quotes.length-1), 10)])
-        res.end();
-    } else {
-        res.writeHead(200, {"Content-Type": "text/html"});
-        fs.readFile("index.html", (err, dat) => {
-            if(err) {
-                res.writeHead(404);
-                res.write("Error: File Not Found");
-            } else {
-                res.write(dat);
-            }
-            res.end();
-        });
-    }
+app.get("/", async (req, res) => {
+    res.send(await readFile("index.html", "utf8"));
 });
 
-server.listen(port);
+app.get("/new-quote", async (req, res) => {
+    console.log(parseInt(Math.random() * quotes.length, 10));
+    res.send(quotes[parseInt(Math.random() * quotes.length, 10)]);
+});
+
+app.listen(port, () => console.log("App available on http://localhost:3000"));
