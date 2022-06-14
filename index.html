@@ -29,7 +29,7 @@
             // I'll change this once I figure out how to get rid of the space character the instant it's pressed.
             if(document.getElementById("ib").value == " " + txtArr[wordID]
             || document.getElementById("ib").value == txtArr[wordID]) {
-                wordID++;
+                wordID = (wordID < txtArr.length-1) ? wordID + 1 : 0;
                 document.getElementById("current-word").innerText = txtArr[wordID];
                 document.getElementById("ib").value = "";
             }
