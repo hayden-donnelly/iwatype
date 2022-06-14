@@ -10,7 +10,7 @@
     <h1>iwatype</h1>
     <p id="quote">Default quote.</p>
     <p id="current-word"></p>
-    <input id="ib" type="type here">
+    <input id="input-box" type="type here">
     <button id="new-quote">New Text</button>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -22,21 +22,19 @@
             txt = data;
             txtArr = txt.split(" ");
             quote.innerText = txt;
+            currentWord.innerText = txtArr[0];
         });
     }
 
     let txt = "";
-    let txtArr = [""];
-    getNewQuote();
+    let txtArr = [];
     let quote = document.getElementById("quote");
-    quote.innerText = txt;
+    let currentWord = document.getElementById("current-word");
+    getNewQuote();
 
     let wordID = 0;
-    let inputBox = document.getElementById("ib");
+    let inputBox = document.getElementById("input-box");
     inputBox.value = " ";
-
-    let currentWord = document.getElementById("current-word");
-    currentWord.innerText = txtArr[wordID];
 
     newQuote = document.getElementById("new-quote");
     newQuote.addEventListener("click", () => {
@@ -44,9 +42,6 @@
     });
 
     document.onkeydown = function (e) {
-        console.log("key down");
-        console.log(e);
-
         // Check if current word has been correctly typed when user hits space.
         if(e.code == "Space") {
             if(inputBox.value == " " + txtArr[wordID] || inputBox.value == txtArr[wordID]) {
