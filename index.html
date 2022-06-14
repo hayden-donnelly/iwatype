@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iwatype</title>
+</head>
+<body>
+    <h1>iwatype</h1>
+    <p id="quote"></p>
+    <p id="current-word"></p>
+    <input id="ib" type="type here">
+
+<script>
+    let txt = "I went to the woods because I wished to live deliberately, to front only the essential facts of life, and see if I could not learn what it had to teach, and not, when I came to die, discover that I had not lived.";
+    let txtArr = txt.split(" ");
+    document.getElementById("quote").innerText = txt;
+
+    let wordID = 0;
+    document.getElementById("current-word").innerText = txtArr[wordID];
+    document.getElementById("ib").value = " ";
+
+    document.onkeydown = function (e) {
+        console.log("key down");
+        console.log(e);
+
+        if(e.code == "Space") {
+            // I'll change this once I figure out how to get rid of the space character the instant it's pressed.
+            if(document.getElementById("ib").value == " " + txtArr[wordID]
+            || document.getElementById("ib").value == txtArr[wordID]) {
+                wordID++;
+                document.getElementById("current-word").innerText = txtArr[wordID];
+                document.getElementById("ib").value = "";
+            }
+        }
+    };
+</script>
+</body>
+</html>
