@@ -39,6 +39,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     const API = "http://localhost:3000/"
+    let hasStartedTyping = false;
+    let timeStartedTyping = null;
 
     function getNewQuote() {
         $.get(API + "new-quote", (data, status) => {
@@ -46,6 +48,7 @@
             txtArr = txt.split(" ");
             quote.innerText = txt;
             currentWord.innerText = txtArr[0];
+            hasStartedTyping = false;
         });
     }
 
@@ -60,8 +63,17 @@
     inputBox.value = " ";
 
     document.onkeydown = function (e) {
+
+        // Check if ctrl+enter has been pressed for new quote.
         if(e.ctrlKey && e.code == "Enter") {
             getNewQuote();
+            return;
+        }
+        
+        // Save time that the user started typing quote.
+        if(!hasStartedTyping) {
+            hasStartedTyping = true;
+            timeStartedTyping = Date.now();
         }
 
         // Check if current word has been correctly typed when user hits space.
