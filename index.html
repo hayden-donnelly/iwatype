@@ -12,6 +12,7 @@
         <p id="quote">Default quote.</p>
         <p id="current-word"></p>
         <input id="input-box" type="text" placeholder="type here">
+        <p id="wpm-counter"></p>
     </div>
 
 <style>
@@ -41,6 +42,7 @@
     const API = "http://localhost:3000/"
     let hasStartedTyping = false;
     let timeStartedTyping = null;
+    let charsCorrectlyTyped = 0;
 
     function getNewQuote() {
         $.get(API + "new-quote", (data, status) => {
@@ -49,6 +51,8 @@
             quote.innerText = txt;
             currentWord.innerText = txtArr[0];
             hasStartedTyping = false;
+            charsCorrectlyTyped = 0;
+            wpmCounter.innerText = "WPM = 0"
         });
     }
 
@@ -56,6 +60,7 @@
     let txtArr = [];
     let quote = document.getElementById("quote");
     let currentWord = document.getElementById("current-word");
+    let wpmCounter = document.getElementById("wpm-counter");
     getNewQuote();
 
     let wordID = 0;
@@ -78,7 +83,17 @@
 
         // Check if current word has been correctly typed when user hits space.
         if(e.code == "Space") {
-            if(inputBox.value == " " + txtArr[wordID] || inputBox.value == txtArr[wordID]) {
+            if(inputBox.value == " " + txtArr[wordID] 
+            || inputBox.value == txtArr[wordID]) {
+
+                // Calculate WPM.
+                charsCorrectlyTyped += txtArr[wordID].length + 1;
+                let wordsCorrectlyTyped = charsCorrectlyTyped / 4;
+                let timeSpentTyping = Date.now() - timeStartedTyping;
+                let wpm = wordsCorrectlyTyped / (timeSpentTyping / 60000);
+                wpmCounter.innerText = "WPM = " + Math.floor(wpm);
+
+                // Update current word.
                 wordID = (wordID < txtArr.length-1) ? wordID + 1 : 0;
                 currentWord.innerText = txtArr[wordID];
                 inputBox.value = "";
