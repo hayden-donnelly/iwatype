@@ -8,10 +8,33 @@
 </head>
 <body>
     <h1>iwatype</h1>
-    <p id="quote">Default quote.</p>
-    <p id="current-word"></p>
-    <input id="input-box" type="type here">
-    <button id="new-quote">New Quote</button>
+    <div class="typing-area">
+        <p id="quote">Default quote.</p>
+        <p id="current-word"></p>
+        <input id="input-box" type="text" placeholder="type here">
+    </div>
+
+<style>
+    body {
+        background-color: black;
+        color: azure;
+    }
+
+    input {
+        border-style: none;
+        background-color: rgb(60, 60, 60);
+        color: azure;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    .typing-area {
+        position: relative;
+        text-align: center;
+    }
+</style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
@@ -36,12 +59,11 @@
     let inputBox = document.getElementById("input-box");
     inputBox.value = " ";
 
-    newQuote = document.getElementById("new-quote");
-    newQuote.addEventListener("click", () => {
-        getNewQuote();
-    });
-
     document.onkeydown = function (e) {
+        if(e.ctrlKey && e.code == "Enter") {
+            getNewQuote();
+        }
+
         // Check if current word has been correctly typed when user hits space.
         if(e.code == "Space") {
             if(inputBox.value == " " + txtArr[wordID] || inputBox.value == txtArr[wordID]) {
