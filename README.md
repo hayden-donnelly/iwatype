@@ -1,6 +1,6 @@
 ## About
 
-Iwatype is an *aesthtic* typing app.
+Iwatype is an *aesthetic* typing app.
 The *aesthetic* is a work in progress.
 
 ## Dependencies
