@@ -1,19 +1,24 @@
+const { Console } = require("console");
 const express = require("express");
 const { readFile } = require("fs").promises;
 const port = 3000;
 const app = express();
+const sqlite3 = require("sqlite3").verbose();
 
-const quotes = ["Don't walk in front of me... I may not follow. Don't walk behind me... I may not lead. Walk beside me... just be my friend.",
-                "Without music, life would be a mistake.",
-                "Man is abandonned upon the earth, condemned to be free.",
-                "Mathematics is the language with which God has written the universe."]
+let db = new sqlite3.Database("./iwatype.db");
+let query = "SELECT * FROM Quotes ORDER BY RANDOM() LIMIT 1;";
 
 app.get("/", async (req, res) => {
     res.send(await readFile("index.html", "utf8"));
 });
 
 app.get("/new-quote", async (req, res) => {
-    res.send(quotes[parseInt(Math.random() * quotes.length, 10)]);
+    db.all(query, [], (err, rows) => {
+        if (err) {
+          throw err;
+        }
+        res.send(rows[0].Text);
+    });
 });
 
 app.listen(port, () => console.log("App available on http://localhost:3000"));
