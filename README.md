@@ -6,6 +6,7 @@ The *aesthetic* is a work in progress.
 ## Dependencies
 * Node
 * Express
+* SQLite3
 
 ## Screenshot
 
