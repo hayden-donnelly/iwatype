@@ -13,7 +13,7 @@
     <h1>iwatype</h1>
     <br>
     <div class="typing-area">
-        <p id="quote">Default quote.</p>
+        <p id="quote">Welcome to iwatype!.</p>
         <p id="current-word"></p>
         <input id="input-box" type="text" placeholder="type here">
         <p id="wpm-counter">WPM = 0</p>
@@ -58,28 +58,29 @@
     let timeStartedTyping = null;
     let charsCorrectlyTyped = 0;
 
+    let txt = "";
+    let txtArr = [];
+    let quoteElement = document.getElementById("quote");
+    let currentWordElement = document.getElementById("current-word");
+    let wpmCounterElement = document.getElementById("wpm-counter");
+    
+    let currentWordID = 0;
+    let inputBoxElement = document.getElementById("input-box");
+    inputBoxElement.value = " ";
+
     function getNewQuote() {
         $.get(API + "new-quote", (data, status) => {
             txt = data;
             txtArr = txt.split(" ");
-            quote.innerText = txt;
-            currentWord.innerText = txtArr[0];
+            quoteElement.innerText = txt;
+            currentWordElement.innerText = txtArr[0];
             hasStartedTyping = false;
             charsCorrectlyTyped = 0;
-            wpmCounter.innerText = "WPM = 0"
+            wordId = 0;
+            wpmCounterElement.innerText = "WPM = 0"
         });
     }
-
-    let txt = "";
-    let txtArr = [];
-    let quote = document.getElementById("quote");
-    let currentWord = document.getElementById("current-word");
-    let wpmCounter = document.getElementById("wpm-counter");
     getNewQuote();
-
-    let wordID = 0;
-    let inputBox = document.getElementById("input-box");
-    inputBox.value = " ";
 
     document.onkeydown = function (e) {
 
@@ -97,20 +98,20 @@
 
         // Check if current word has been correctly typed when user hits space.
         if(e.code == "Space") {
-            if(inputBox.value == " " + txtArr[wordID] 
-            || inputBox.value == txtArr[wordID]) {
+            if(inputBoxElement.value == " " + txtArr[currentWordID] 
+            || inputBoxElement.value == txtArr[currentWordID]) {
 
                 // Calculate WPM.
-                charsCorrectlyTyped += txtArr[wordID].length + 1;
+                charsCorrectlyTyped += txtArr[currentWordID].length + 1;
                 let wordsCorrectlyTyped = charsCorrectlyTyped / 4;
                 let timeSpentTyping = Date.now() - timeStartedTyping;
                 let wpm = wordsCorrectlyTyped / (timeSpentTyping / 60000);
-                wpmCounter.innerText = "WPM = " + Math.floor(wpm);
+                wpmCounterElement.innerText = "WPM = " + Math.floor(wpm);
 
                 // Update current word.
-                wordID = (wordID < txtArr.length-1) ? wordID + 1 : 0;
-                currentWord.innerText = txtArr[wordID];
-                inputBox.value = "";
+                currentWordID = (currentWordID < txtArr.length-1) ? currentWordID + 1 : 0;
+                currentWordElement.innerText = txtArr[currentWordID];
+                inputBoxElement.value = "";
             }
         }
     };
