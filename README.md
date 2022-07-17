@@ -7,6 +7,14 @@ The *aesthetic* is a work in progress.
 * Node
 * Express
 * SQLite3
+* Git LFS
+
+## Git LFS
+This project uses Git LFS to store its database.
+Make sure you have it setup for your account/machine with the following command:
+```
+git lfs install
+```
 
 ## Screenshot
 
