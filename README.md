@@ -6,9 +6,7 @@ The *aesthetic* is a work in progress.
 ## Dependencies
 * Node
 * Express
-
-## TODO List
-* Create a databse for quotes (maybe redis)
+* SQLite3
 
 ## Screenshot
 
