@@ -38,6 +38,8 @@
     }
 
     .typing-area {
+        max-width: 50%;
+        margin: auto;
         position: relative;
         text-align: center;
     }
@@ -74,6 +76,7 @@
             txtArr = txt.split(" ");
             quoteElement.innerText = txt;
             currentWordElement.innerText = txtArr[0];
+            inputBoxElement.value = " ";
             hasStartedTyping = false;
             charsCorrectlyTyped = 0;
             currentWordID = 0;
