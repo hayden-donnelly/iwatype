@@ -10,7 +10,7 @@ The *aesthetic* is a work in progress.
 * Git LFS
 
 ## Git LFS
-This project uses Git LFS to store its databse.
+This project uses Git LFS to store its database.
 Make sure you have it setup for your account/machine with the following command:
 ```
 git lfs install
