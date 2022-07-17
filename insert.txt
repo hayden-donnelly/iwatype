@@ -1,0 +1,2 @@
+INSERT INTO Quotes VALUES ("quote", "author", "source"); 
+
