@@ -11,7 +11,7 @@ The *aesthetic* is a work in progress.
 
 ## Git LFS
 This project uses Git LFS to store its databse.
-Make sure you have it setup for your account and machine with the following command:
+Make sure you have it setup for your account/machine with the following command:
 ```
 git lfs install
 ```
