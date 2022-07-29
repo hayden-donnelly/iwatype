@@ -1,7 +1,6 @@
 ## About
 
-Iwatype is an *aesthetic* typing app.
-The *aesthetic* is a work in progress.
+Iwatype is a minimalistic web app for practicing computer typing. 
 
 ## Dependencies
 * Node
